@@ -33,12 +33,17 @@ jobs:
     - name: Build
       run: python setup.py bdist_wheel
 
-    - name: Build sdist
-      if: matrix.os == 'macOS-latest' && matrix.python-version == '3.7'
-      run: python setup.py sdist
-
-    - name: Publish pypi
-      if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/')
+    - name: Commit files
       run: |
-        twine upload dist/* -u ${{ secrets.PYPI_USER }} -p ${{ secrets.PYPI_PASS }}
+        git config --local user.email "mgq499243711@gmail.com"
+        git config --local user.name "Hmiku-suki"
+        git add .
+        git commit -m "`date '+%Y-%m-%d %H:%M:%S'`" #动态提交信息
+
+    - name: Push changes
+      uses: Hmiku-suki/mojimoji@abc
+      with:
+        github_token: ${{ secrets.ACTION_TOKEN }}
+        branch: ${{ github.ref }}
+
 
