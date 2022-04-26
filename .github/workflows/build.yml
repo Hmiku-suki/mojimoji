@@ -41,7 +41,7 @@ jobs:
         git commit -m "`date '+%Y-%m-%d %H:%M:%S'`" #动态提交信息
 
     - name: Push changes
-      uses: Hmiku-suki/mojimoji@abc
+      uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.ACTION_TOKEN }}
         branch: ${{ github.ref }}
